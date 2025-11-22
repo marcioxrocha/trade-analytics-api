@@ -1,6 +1,7 @@
 import { Controller, Get, Query, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { HttpService } from '@nestjs/axios';
+import { catchError, EMPTY, lastValueFrom } from 'rxjs';
 
 @Controller()
 export class AppController {
@@ -28,10 +29,8 @@ export class AppController {
       url = `${url}${query}`;
     }
 
-    let result;
-    this._httpService.get(request.url).subscribe(res => {
-      result = res.data;
-    });
-    return result;
+    return (await lastValueFrom(this._httpService.get(url).pipe(catchError(e => {
+      return EMPTY;
+    })))).data;
   }
 }

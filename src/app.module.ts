@@ -3,17 +3,19 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
     AuthModule,
-    ConfigModule.forRoot({ isGlobal: true })
+    ConfigModule.forRoot({ isGlobal: true }),
+    HttpModule
   ],
   controllers: [
     AppController
   ],
   providers: [
     AppService
-  ],
+  ]
 })
 export class AppModule {}

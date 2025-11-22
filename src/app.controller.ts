@@ -23,7 +23,7 @@ export class AppController {
       if(query == ''){
         query = '?';
       }
-      query += `${prop}=${request.query[prop]}`;
+      query += `${query == ''?'?':'&'}${prop}=${request.query[prop]}`;
     }
     if(query){
       url = `${url}${query}`;

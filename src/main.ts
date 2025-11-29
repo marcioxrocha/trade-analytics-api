@@ -10,6 +10,10 @@ async function bootstrap() {
   // Configuração do CORS
   const corsOrigins = (configService.get<string>('CORS_ORIGINS')??'').split(',').map(item => item.trim()).filter(x => x);
   const allowedOrigins = corsOrigins?.length ? corsOrigins : '*';
+
+  console.log('DEBUG CORS - ENV VAR:', configService.get('CORS_ORIGINS')); // Ver o que chega bruto
+  console.log('DEBUG CORS - PARSED:', corsOrigins); // Ver o array final
+
   app.enableCors({
     origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos

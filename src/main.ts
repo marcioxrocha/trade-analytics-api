@@ -8,16 +8,14 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   // Configuração do CORS
-  const corsOrigins = configService.get<string>('CORS_ORIGINS');
-  if (corsOrigins) {
-    const allowedOrigins = corsOrigins.split(',').map(item => item.trim());
-    app.enableCors({
-      origin: allowedOrigins,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
-      credentials: true, // Permite o envio de cookies e headers de autenticação,
-      allowedHeaders: ['url', 'token']
-    });
-  }  
+  const corsOrigins = (configService.get<string>('CORS_ORIGINS')??'').split(',').map(item => item.trim()).filter(x => x);
+  const allowedOrigins = corsOrigins?.length ? corsOrigins : '*';
+  app.enableCors({
+    origin: allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+    credentials: true, // Permite o envio de cookies e headers de autenticação,
+    allowedHeaders: ['url', 'token']
+  });  
 
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3001);

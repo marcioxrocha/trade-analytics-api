@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { json, urlencoded } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +20,10 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
     credentials: true, // Permite o envio de cookies e headers de autenticação,
     allowedHeaders: ['url', 'token']
-  });  
+  });
+
+  app.use(json({ limit: '300mb' }));
+  app.use(urlencoded({ extended: true, limit: '300mb' }));
 
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3001);

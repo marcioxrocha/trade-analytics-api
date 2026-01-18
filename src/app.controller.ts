@@ -116,10 +116,10 @@ export class AppController {
         negocio.magic_number = tmp[2];
         negocio.posicao_id = tmp[3];
         negocio.data = tmp[4];
-        negocio.data_termino = tmp[4];
-        negocio.lucro = parseFloat(tmp[5]);
-        negocio.contratos = parseFloat(tmp[6]);
-        negocio.pontos = parseFloat(tmp[7]);
+        negocio.data_termino = tmp[5];
+        negocio.lucro = parseFloat(tmp[6]);
+        negocio.contratos = parseFloat(tmp[7]);
+        negocio.pontos = parseFloat(tmp[8]);
 
         if(!data.find(x => x.id == negocio.id)){
           data.push(negocio);

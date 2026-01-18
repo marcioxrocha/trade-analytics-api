@@ -11,6 +11,7 @@ export class Negocio {
   magic_number:string;
   posicao_id:string;
   data:string;
+  data_termino:string;
   lucro:number;
   pontos:number;
   contratos:number;
@@ -115,6 +116,7 @@ export class AppController {
         negocio.magic_number = tmp[2];
         negocio.posicao_id = tmp[3];
         negocio.data = tmp[4];
+        negocio.data_termino = tmp[4];
         negocio.lucro = parseFloat(tmp[5]);
         negocio.contratos = parseFloat(tmp[6]);
         negocio.pontos = parseFloat(tmp[7]);
